@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ATM.Api/ATM.Api.csproj" />
+  <Project Path="ATM.Application/ATM.Application.csproj" />
+  <Project Path="ATM.Data/ATM.Data.csproj" />
+  <Project Path="ATM.Domain/ATM.Domain.csproj" />
+</Solution>
