@@ -7,11 +7,15 @@ using ATM.Data.Services;
 using ATM.Domain.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<ATMDbContext>(options =>options.UseInMemoryDatabase("ATM_Db"));
 
@@ -21,26 +25,28 @@ builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IBankService, BankService>();
 
+var jwtKey = builder.Configuration["Jwt:Key"] ?? "Clave_Super_Secreta_ATM_2024_Security";
+var key = Encoding.ASCII.GetBytes(jwtKey);
 
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
     {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = "ATM_System",
-            ValidAudience = "ATM_Users",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("TuClaveSuperSecretaDeAlMenos32Caracteres"))
-        };
-    });
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false, // Simplificado para la prueba
+        ValidateAudience = false,
+        ClockSkew = TimeSpan.Zero // Para que el token expire exactamente cuando dice
+    };
+});
 
-builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
