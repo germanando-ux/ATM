@@ -1,9 +1,12 @@
 ﻿using ATM.Application.DTOs;
 using ATM.Application.Interface;
+using ATM.Domain;
 using ATM.Domain.Interface;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
@@ -14,50 +17,55 @@ namespace ATM.Application.Services
     /// </summary>
     public class AuthService : IAuthService
     {
-        private readonly IBankAccountRepository _repository;
+        private readonly IPersonRepository _personRepository;
         private readonly IConfiguration _config;
 
-        public AuthService(IBankAccountRepository repository, IConfiguration config)
+        public AuthService(IPersonRepository personRepository, IConfiguration config)
         {
-            _repository = repository;
+            _personRepository = personRepository;
             _config = config;
         }
+
+        /// <summary>
+        /// Realiza la validación de DNI y PIN contra la base de datos.
+        /// </summary>
         public async Task<string?> AuthenticateAsync(LoginRequest request)
         {
-        
-            var account = await _repository.GetByAccountNumberAsync(request.AccountNumber);
 
-            // Validación de seguridad
-            if (account == null || account.Owner.Dni != request.Dni || account.Owner.Pin != request.Pin)
+            var person = await _personRepository.GetByDniAsync(request.Dni);
+
+           if (person == null || person.Pin != request.Pin)
             {
                 return null;
             }
 
-            // 2. Si es válido, generamos el Token
-            return GenerateJwtToken(account.Owner.Dni);
+
+            return GenerateJwtToken(person);
         }
 
         /// <summary>
-        /// Genera un token JWT firmado para el usuario.
+        /// Encapsula la lógica de creación del token JWT.
         /// </summary>
-        private string GenerateJwtToken(string dni)
+        private string GenerateJwtToken(Person person)
         {
-            var jwtKey = _config["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key not configured");
+            // Leemos la clave desde appsettings.json
+            var jwtKey = _config["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key is missing in configuration.");
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+            // Definimos los Claims (información que viaja dentro del token)
             var claims = new[]
             {
-            new Claim(ClaimTypes.NameIdentifier, dni),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim("System", "ATM_Tech_Test")
+            new Claim(ClaimTypes.NameIdentifier, person.DNI),
+            new Claim(ClaimTypes.Name, $"{person.FirstName} {person.LastName}"),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
             var token = new JwtSecurityToken(
                 issuer: "ATM_System",
                 audience: "ATM_Users",
                 claims: claims,
-                expires: DateTime.Now.AddHours(1), // El token expira en 1 hora
+                expires: DateTime.Now.AddHours(2), // Validez de 2 horas
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

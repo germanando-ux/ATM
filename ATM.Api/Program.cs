@@ -1,4 +1,6 @@
 
+using ATM.Application.Interface;
+using ATM.Application.Services;
 using ATM.Data.Data;
 using ATM.Data.Repositories;
 using ATM.Data.Services;
@@ -15,6 +17,10 @@ builder.Services.AddDbContext<ATMDbContext>(options =>options.UseInMemoryDatabas
 
 
 builder.Services.AddScoped<IBankAccountRepository, BankAccountRepository>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IBankService, BankService>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
