@@ -10,10 +10,12 @@ namespace ATM.Domain
         public decimal Balance { get; private set; }
         public Person Owner { get; private set; }
 
-        public BankAccount(string accountNumber,Person owner, decimal initialBalance = 0)
+        private BankAccount() { }
+
+        public BankAccount(string accountNumber,Person owner, decimal balance = 0)
         {
             AccountNumber = accountNumber;
-            Balance = initialBalance;
+            Balance = balance;
             Owner = owner;
         }
 

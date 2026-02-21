@@ -10,9 +10,11 @@ namespace ATM.Domain
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
 
-       
-        public Person(string DNI, string firstName, string lastName) 
+        private Person() { }
+
+        public Person(string dni, string firstName, string lastName) 
         {
+            DNI = dni;
             FirstName = firstName;
             LastName = lastName;
         }
