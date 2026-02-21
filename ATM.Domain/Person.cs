@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Text;
 
 namespace ATM.Domain
@@ -9,14 +10,17 @@ namespace ATM.Domain
         public string DNI { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
+        public string Pin { get; private set; }
 
         private Person() { }
 
-        public Person(string dni, string firstName, string lastName) 
+        public Person(string dni, string firstName, string lastName, string pin) 
         {
             DNI = dni;
             FirstName = firstName;
             LastName = lastName;
+            Pin = pin;
+
         }
     }
 

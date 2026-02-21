@@ -1,4 +1,5 @@
 ﻿using ATM.Application.DTOs;
+using ATM.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,5 +20,7 @@ namespace ATM.Application.Interface
         /// Realiza un retiro de la cuenta especificada.
         /// </summary>
         Task<AccountResponseDTO> WithdrawAsync(TransactionRequestDTO request);
+
+   
     }
 }

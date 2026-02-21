@@ -26,6 +26,8 @@ namespace ATM.Data.Repositories
             return await _context.BankAccounts.Include(a => a.Owner).FirstOrDefaultAsync(a => a.AccountNumber == accountNumber);
         }
 
+       
+
         /// <summary>
         /// Marca la entidad como modificada y persiste en la BBDD en memoria.
         /// </summary>

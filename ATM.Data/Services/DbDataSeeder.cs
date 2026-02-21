@@ -18,21 +18,21 @@ namespace ATM.Data.Services
                 return;
             }
 
-            var person = new Person("1", "Atilano", "Ceferino");
+            var person = new Person("1", "Atilano", "Ceferino","0000");
             var account = new BankAccount("ES1", person, 5000);
 
             context.Persons.Add(person);
             context.BankAccounts.Add(account);
             context.SaveChanges();
 
-            person = new Person("2", "Pepe", "Gotera");
+            person = new Person("2", "Pepe", "Gotera", "0000");
             account = new BankAccount("ES2", person, 8000);
 
             context.Persons.Add(person);
             context.BankAccounts.Add(account);
             context.SaveChanges();
 
-            person = new Person("3", "Filemón", "Pi");
+            person = new Person("3", "Filemón", "Pi", "0000");
             account = new BankAccount("ES3", person, 12000);
 
             context.Persons.Add(person);

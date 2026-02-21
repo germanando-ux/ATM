@@ -22,6 +22,7 @@ namespace ATM.Data.Data
                 entity.HasKey(p => p.DNI);
                 entity.Property(p => p.FirstName).IsRequired().HasMaxLength(50);
                 entity.Property(p => p.LastName).IsRequired().HasMaxLength(50);
+                entity.Property(p => p.Pin).IsRequired().HasMaxLength(6);
             });
 
             modelBuilder.Entity<BankAccount>(entity =>
