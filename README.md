@@ -61,3 +61,71 @@ El primer endpoint que debe invocarse es el de login:
 ## 🔑 Login
 
 **POST**
+
+```
+https://localhost:7163/api/Auth/login
+```
+
+### Body:
+
+```json
+{
+  "dni": "1",
+  "pin": "0000"
+}
+```
+
+Este endpoint devuelve un **token JWT**, que debe enviarse en la cabecera `Authorization` de las siguientes peticiones:
+
+```
+Authorization: Bearer {token}
+```
+
+---
+
+# 💰 Operaciones Disponibles
+
+## ➕ Ingreso (Deposit)
+
+**POST**
+
+```
+https://localhost:7163/api/Bank/deposit
+```
+
+### Body:
+
+```json
+{
+  "accountNumber": "ES1",
+  "amount": 1000.00
+}
+```
+
+---
+
+## ➖ Disposición (Withdraw)
+
+**POST**
+
+```
+https://localhost:7163/api/Bank/withdraw
+```
+
+### Body:
+
+```json
+{
+  "accountNumber": "ES1",
+  "amount": 1000.00
+}
+```
+
+---
+
+# 📝 Notas de la Implementación
+
+- Se adjunta en el repositorio un **JSON de exportación de endpoints de Postman**.
+- El control de errores, dado el alcance de la prueba, es básico con validaciones en los endpoints.
+- No se ha implementado un middleware global de gestión de errores.
+- Los datos se almacenan únicamente en memoria.
