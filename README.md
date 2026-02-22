@@ -9,35 +9,21 @@ Este proyecto implementa una **API para la gestión de un cajero automático (AT
 La solución está organizada en las siguientes capas:
 
 ### 📦 ATM.Domain
-Contiene:
-- Entidades principales:
-  - `BankAccount`
-  - `Person`
-- Reglas de negocio del dominio.
-
+Contiene las entidades (BankAccount y Person) y las reglas de negocio.
 ---
 
 ### 🗄️ ATM.Data
-Contiene:
-- `DbContext`
-- Implementación del repositorio de datos.
-- Uso de **Entity Framework Core** con base de datos **InMemory**.
+Contiene el DBContext y el repositorio de datos. En este caso con Entity Framework con datos en memoria
 
 ---
 
 ### ⚙️ ATM.Application
-Capa de orquestación:
-- Servicios de aplicación.
-- Consumo de repositorios.
-- Interacción con entidades de dominio.
+ Capa de orquestación con los servicios, que consume los repositorios y las entidades de dominio
 
 ---
 
 ### 🌐 ATM.Api
-Punto de entrada de la aplicación:
-- Controladores REST.
-- Gestión de seguridad mediante **JWT (JSON Web Tokens)**.
-
+Punto de entrada de la aplicación. Gestiona los controladores REST y la seguridad mediante JWT (JSON Web Tokens).
 ---
 
 ## 👥 Datos Iniciales en Memoria
