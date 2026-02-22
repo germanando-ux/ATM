@@ -4,6 +4,10 @@ using System.Text;
 
 namespace ATM.Domain
 {
+    /// <summary>
+    /// Representa una cuenta bancaria dentro del dominio del sistema ATM.
+    /// Contiene las reglas de negocio para depósitos y retiros.
+    /// </summary>
     public class BankAccount
     {
         public string AccountNumber { get; private set; }
@@ -19,6 +23,13 @@ namespace ATM.Domain
             Owner = owner;
         }
 
+        /// <summary>
+        /// implementa la lógica de un ingreso de dinero en la cuenta cumpliendo las reglas de negocio.
+        /// </summary>
+        /// <param name="amount">Cantidad a ingresar.</param>
+        /// <exception cref="ArgumentException">
+        /// Se lanza cuando el monto es superior a 3000 EUR o no es un valor positivo.
+        /// </exception>
         public void Deposit(decimal amount)
         {
             if (amount > 3000)
@@ -32,6 +43,16 @@ namespace ATM.Domain
             Balance += amount;
         }
 
+        /// <summary>
+        /// implementa la lógica de una retirada de efectivo de la cuenta cumpliendo las reglas de negocio.
+        /// </summary>
+        /// <param name="amount">Cantidad a retirar.</param>
+        /// <exception cref="ArgumentException">
+        /// Se lanza cuando el monto supera los 1000 EUR o no es un valor positivo.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se lanza cuando el monto a retirar es mayor al saldo disponible.
+        /// </exception>
         public void Withdraw(decimal amount)
         {
             if (amount > 1000)

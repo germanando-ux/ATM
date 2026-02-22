@@ -1,0 +1,121 @@
+{
+  "info": {
+    "_postman_id": "61d3dc54-12f3-47ef-bea4-96ddf196ecb4",
+    "name": "ATM",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "3411528",
+    "_collection_link": "https://go.postman.co/collection/3411528-61d3dc54-12f3-47ef-bea4-96ddf196ecb4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"dni\": \"1\",\r\n  \"pin\": \"0000\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:7163/api/Auth/login",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7163",
+          "path": [
+            "api",
+            "Auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deposit",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXRpbGFubyBDZWZlcmlubyIsImp0aSI6IjJkYTQ3Yjc1LTM5NmUtNDVmZi1hMDI3LWE5MDYzMTY5M2IzZCIsImV4cCI6MTc3MTc1NDk0MSwiaXNzIjoiQVRNX1N5c3RlbSIsImF1ZCI6IkFUTV9Vc2VycyJ9.OWDKjDPmfgBys6AOjluORsq6RokkAvLcW5-82NdiK_Q",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"accountNumber\": \"ES1\",\r\n  \"amount\": 1000.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:7163/api/Bank/deposit",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7163",
+          "path": [
+            "api",
+            "Bank",
+            "deposit"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Withdraw",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXRpbGFubyBDZWZlcmlubyIsImp0aSI6IjJkYTQ3Yjc1LTM5NmUtNDVmZi1hMDI3LWE5MDYzMTY5M2IzZCIsImV4cCI6MTc3MTc1NDk0MSwiaXNzIjoiQVRNX1N5c3RlbSIsImF1ZCI6IkFUTV9Vc2VycyJ9.OWDKjDPmfgBys6AOjluORsq6RokkAvLcW5-82NdiK_Q",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"accountNumber\": \"ES1\",\r\n  \"amount\": 1000.00\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:7163/api/Bank/withdraw",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7163",
+          "path": [
+            "api",
+            "Bank",
+            "withdraw"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

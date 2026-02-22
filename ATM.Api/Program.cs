@@ -41,9 +41,22 @@ builder.Services.AddAuthentication(x =>
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false, // Simplificado para la prueba
+        ValidateIssuer = false,
         ValidateAudience = false,
-        ClockSkew = TimeSpan.Zero // Para que el token expire exactamente cuando dice
+        ClockSkew = TimeSpan.Zero 
+    };
+
+    x.Events = new JwtBearerEvents
+    {
+        OnChallenge = async context =>
+        {
+            context.HandleResponse();
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            context.Response.ContentType = "application/json";
+
+            var response = new { message = "Operación no autorizada. Reintroduzca PIN." };
+            await context.Response.WriteAsJsonAsync(response);
+        }
     };
 });
 

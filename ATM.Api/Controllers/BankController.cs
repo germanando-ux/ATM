@@ -29,9 +29,13 @@ namespace ATM.Api.Controllers
                 var result = await _bankService.DepositAsync(request);
                 return Ok(result);
             }
-            catch (InvalidOperationException ex)
+            catch (Exception ex) when (ex is ArgumentException || ex is InvalidOperationException)
             {
                 return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return StatusCode(500, "Ocurrió un error técnico inesperado.");
             }
         }
 
@@ -47,10 +51,13 @@ namespace ATM.Api.Controllers
                 var result = await _bankService.WithdrawAsync(request);
                 return Ok(result);
             }
-            catch (InvalidOperationException ex)
+            catch (Exception ex) when (ex is ArgumentException || ex is InvalidOperationException)
             {
-                // Capturamos validaciones (ej. > 1000€ o saldo insuficiente)
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message }); 
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ocurrió un error técnico inesperado.");
             }
         }
     }

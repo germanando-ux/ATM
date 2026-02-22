@@ -65,7 +65,7 @@ namespace ATM.Application.Services
                 issuer: "ATM_System",
                 audience: "ATM_Users",
                 claims: claims,
-                expires: DateTime.Now.AddHours(2), // Validez de 2 horas
+                expires: DateTime.Now.AddHours(12), // Validez de 2 horas
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
