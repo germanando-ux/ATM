@@ -1,6 +1,6 @@
 # 🏧 ATM System API – Prueba Técnica
 
-Este proyecto implementa una **API para la gestión de un cajero automático (ATM)**, desarrollada bajo los principios de **Arquitectura Orientada al Dominio (DDD)** y asegurando la integridad de las reglas de negocio.
+Este proyecto implementa una **API para la gestión de un cajero automático (ATM)**, desarrollada en .NET 10 bajo los principios de **Arquitectura Orientada al Dominio (DDD)** y asegurando la integridad de las reglas de negocio. En favor de la simplicidad, en esta prueba técnica, se ha optado por un modelo de dominio compartido . Esto significa que las entidades de Entity Framework (DbSet) actúan también como entidades de dominio, incorporando la lógica de negocio en el mismo objeto y evitando la complejidad de mapeos adicionales
 
 ---
 
@@ -43,8 +43,8 @@ Los datos se cargan dinámicamente al iniciar la aplicación:
 | 3   | Filemón  | Pi         | 0000  | ES3    | 12000  |
 
 ---
+# 🚀 Casos de Uso
 
-# 🔐 Seguridad
 
 La autenticación se realiza mediante **JWT**.
 
@@ -74,8 +74,6 @@ Authorization: Bearer {token}
 ```
 
 ---
-
-# 💰 Operaciones Disponibles
 
 ## ➕ Ingreso (Deposit)
 

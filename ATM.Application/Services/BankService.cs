@@ -35,7 +35,6 @@ namespace ATM.Application.Services
                 throw new InvalidOperationException("La cuenta no existe.");
             }
 
-            // La entidad valida el límite de 3000
             account.Deposit(request.Amount);
 
             await _repository.UpdateAsync(account);
@@ -58,7 +57,6 @@ namespace ATM.Application.Services
                 throw new InvalidOperationException("La cuenta no existe.");
             }
 
-            // La entidad valida el límite de 1000 y saldo suficiente
             account.Withdraw(request.Amount);
 
             await _repository.UpdateAsync(account);
