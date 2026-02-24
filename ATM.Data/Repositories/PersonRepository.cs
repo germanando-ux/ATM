@@ -1,4 +1,5 @@
-﻿using ATM.Application.Interface;
+﻿
+using ATM.Application.Interface;
 using ATM.Data.Data;
 using ATM.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ATM.Application.Services
+namespace ATM.Data.Repositories
 {
     public class PersonRepository : IPersonRepository
     {
